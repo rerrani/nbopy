@@ -24,7 +24,9 @@ b = 4.0
 g = 1.0
 M =  4 * pi * quad( lambda r: r*r * rho(r) , 0., np.inf)[0] # non-normalized total mass
 
-modelname = "model.npy"
+modelname = "model.npy"    # for numpy binary file output 
+#modelname = "model.dat"   # for ASCII file output
+
 N        = 1e7    # number of particles to draw
 Ndraw    = 1e6    # number of random numbers drawn at a time 
 NE       = 1e4    # number of energy bins
@@ -118,8 +120,13 @@ Efails = 0      # rejection sampling failures in Energy
 # while we still need to generate 'particles'..
 while (n < N):
   # inverse transform sampling for R
-  randMcum = np.random.rand(int(Ndraw))      # rand. between 0 and 1
-  randR = np.interp(randMcum ,Mcum,R)        # inverse gives radius distributed like rho(r)
+  
+  # random number between fraction of particles within  min. sampled radius Rmin 
+  #                   and fraction of particles outside max. sampled radius Rmax
+  # thanks @Mike Petersen for spotting this glitch! 
+  randMcum = Nin/float(N)  + (1.-(Nin+Nout)/float(N)) * np.random.rand(int(Ndraw))
+  # inverse gives radius distributed like rho(r) w/o particles inside/outside Rmin/Rmax 
+  randR = np.interp(randMcum ,Mcum,R)        
   
    # rejection sampling for E
   psiR = np.interp(randR ,R,psi)             # potential at radius
@@ -179,6 +186,7 @@ if modelname[-4:] == ".npy":
   np.save(modelname,np.column_stack((xx,yy,zz,vx,vy,vz)) )   # save npy array
 else:
   np.savetxt(modelname,np.column_stack((xx,yy,zz,vx,vy,vz)) )  # ASCII output
+  
 
 
 print("      *  All done :o)" )

@@ -21,7 +21,8 @@ def rho(r)  :   return r**(-g)  * (1. + r**a  )**((g-b)/a)
 def rhoS(r) :   return r**(-gS) * (rsS**aS + r**aS )**((gS-bS)/aS)  
 
 # N-body model used to paint stars onto, with density as defined by rho(r)
-modelname = "model.npy" 
+modelname = "model.npy"    # for numpy binary file input and output (stars.npy)
+#modelname = "model.dat"   # for ASCII file input and output (stars.dat)
 
 N = 1e7    # Number of particles in model
 a = 1.
