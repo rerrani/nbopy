@@ -5,6 +5,7 @@
 #             see e.g. Spitzer 1987 'dynamical evolution of globular clusters'
 #
 #  RE May 2019, raer@roe.ac.uk, www.roe.ac.uk/~raer
+#  Corresponding paper: http://arxiv.org/abs/1906.01642 
 
 from __future__ import print_function
 from math import pi
@@ -26,8 +27,8 @@ M =  4 * pi * quad( lambda r: r*r * rho(r) , 0., np.inf)[0] # non-normalized tot
 modelname = "model.npy"
 N        = 1e7    # number of particles to draw
 Ndraw    = 1e6    # number of random numbers drawn at a time 
-NE       = 4e4    # number of energy bins
-NR       = 4e4    # number of radius bins
+NE       = 1e4    # number of energy bins
+NR       = 1e4    # number of radius bins
 Rmax     = 100    # maximum sampled radius
 Rmin     = 1e-2   # minimum sampled radius
 R        = np.logspace(np.log10(Rmin),np.log10(Rmax),num=NR)
@@ -71,6 +72,7 @@ DF = f(E)               # here we build the DF
 # check whether DF is physical - if not, check for rounding errors in integration, try increasing/decreasing NR, NE
 if np.any (DF < 0) : 
   print("      *  Exit. DF < 0, see df.dat" )
+  np.savetxt("df.dat", np.column_stack(( E, DF)))
   sys.exit(0)
 else: print("      *  DF >= 0, all good" )
 

@@ -2,8 +2,9 @@
 #
 #  npaint.py : generates stellar probabilities to paint onto N-body models
 #              in the spirit of Bullock & Johnston 2005
-#
+#              
 #  RE May 2019, raer@roe.ac.uk, www.roe.ac.uk/~raer
+#  Corresponding paper: http://arxiv.org/abs/1906.01642 
 
 from __future__ import print_function
 from math import pi
@@ -36,8 +37,8 @@ rsS = 0.2   # ratio of stellar and DM scale radius
 MS  =  4 * pi * quad( lambda r: r*r * rhoS(r) , 0., np.inf)[0] # non-normalized total mass
 
 
-NE       = 4e4    # number of energy bins
-NR       = 4e4    # number of radius bins
+NE       = 1e4    # number of energy bins
+NR       = 1e4    # number of radius bins
 Rmax     = 100    # maximum sampled radius
 Rmin     = 1e-2   # minimum sampled radius
 R        = np.logspace(np.log10(Rmin),np.log10(Rmax),num=NR)
