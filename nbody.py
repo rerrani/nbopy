@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 #
 #  nbody.py : generates equilibrium N-body models for a given density distribution  
 #             with isotropic velocity dispersion using Eddington inversion.
@@ -7,11 +7,14 @@
 #  RE May 2019, raer@roe.ac.uk, www.roe.ac.uk/~raer
 #  Corresponding paper: http://arxiv.org/abs/1906.01642 
 
-from __future__ import print_function
+#from __future__ import print_function     # uncomment if you run this in python2  
 from math import pi
 import numpy as np
 from scipy.integrate import quad
 import sys
+
+
+
 
 
 # seed of the random number generator 
@@ -33,7 +36,7 @@ NE       = 1e4    # number of energy bins
 NR       = 1e4    # number of radius bins
 Rmax     = 100    # maximum sampled radius
 Rmin     = 1e-2   # minimum sampled radius
-R        = np.logspace(np.log10(Rmin),np.log10(Rmax),num=NR)
+R        = np.logspace(np.log10(Rmin),np.log10(Rmax),num=int(NR))
 
 EPSREL = 1e-6     # integration relative precision
 
@@ -67,7 +70,7 @@ f = np.vectorize( lambda e: 1./(np.sqrt(8)*pi*pi) * (quad( lambda p:  np.interp(
 
 maxE = psi[0]           # most-bound energy
 minE = maxE/float(NE)   # least-bound energy
-E = np.linspace(minE,maxE,num=NE)
+E = np.linspace(minE,maxE,num=int(NE))
 DF = f(E)               # here we build the DF
 
 
