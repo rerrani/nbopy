@@ -1,8 +1,9 @@
 # nbopy
-Generates N-body models through Eddington inversion, and paints stellar probabilities on top using a distribution-function based approach. See [arXiv:1906.01642](https://arxiv.org/abs/1906.01642).
+Generates N-body models through Eddington inversion, and paints stellar probabilities on top using a distribution-function based approach. See [EP20](https://arxiv.org/abs/1906.01642).
 
-**nbody.py** generates the models  
-**npaint.py** paints stars on top
+**nbody.py** generates the models. See [this link](https://rerrani.github.io/code.html#nbopy) for a brief introduction.
+
+**npaint.py** paints stars on top. See [this link](https://rerrani.github.io/code.html#npaint).
 
 To run on python2, add `from __future__ import print_function` .
 
